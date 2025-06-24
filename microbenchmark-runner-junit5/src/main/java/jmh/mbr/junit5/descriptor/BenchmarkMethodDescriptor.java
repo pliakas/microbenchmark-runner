@@ -9,13 +9,12 @@
  */
 package jmh.mbr.junit5.descriptor;
 
-import jmh.mbr.core.model.BenchmarkMethod;
-import jmh.mbr.core.model.MethodAware;
-
 import java.lang.reflect.Method;
 
+import jmh.mbr.core.model.BenchmarkMethod;
+import jmh.mbr.core.model.MethodAware;
+import jmh.mbr.junit5.config.MbrConfiguration;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.jupiter.engine.extension.ExtensionRegistry;
 import org.junit.jupiter.engine.extension.MutableExtensionRegistry;
 import org.junit.platform.commons.util.ClassUtils;
@@ -57,7 +56,7 @@ public class BenchmarkMethodDescriptor extends AbstractBenchmarkDescriptor imple
 	}
 
 	@Override
-	public ExtensionContext getExtensionContext(ExtensionContext parent, EngineExecutionListener engineExecutionListener, JupiterConfiguration configuration) {
+	public ExtensionContext getExtensionContext(ExtensionContext parent, EngineExecutionListener engineExecutionListener, MbrConfiguration configuration) {
 		return new BenchmarkMethodExtensionContext(parent, engineExecutionListener, this, configuration, this);
 	}
 

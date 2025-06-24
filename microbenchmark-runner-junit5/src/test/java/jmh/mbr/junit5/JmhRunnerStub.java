@@ -9,6 +9,11 @@
  */
 package jmh.mbr.junit5;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import jmh.mbr.core.BenchmarkConfiguration;
 import jmh.mbr.core.JmhSupport;
 import jmh.mbr.core.model.BenchmarkClass;
@@ -16,16 +21,10 @@ import jmh.mbr.core.model.BenchmarkDescriptor;
 import jmh.mbr.core.model.BenchmarkDescriptorFactory;
 import jmh.mbr.core.model.BenchmarkMethod;
 import jmh.mbr.core.model.BenchmarkResults;
+import jmh.mbr.junit5.config.MbrConfiguration;
 import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
 import jmh.mbr.junit5.descriptor.BenchmarkMethodDescriptor;
 import jmh.mbr.junit5.execution.JmhRunner;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.jupiter.engine.extension.MutableExtensionRegistry;
 import org.junit.platform.engine.EngineExecutionListener;
 import org.junit.platform.engine.TestDescriptor;
@@ -46,7 +45,7 @@ public class JmhRunnerStub extends JmhRunner {
 	List<Collection<RunResult>> stubResults = new ArrayList<>();
 	JmhSupportStub supportStub;
 
-	public JmhRunnerStub(JupiterConfiguration configuration, MutableExtensionRegistry extensionRegistry) {
+	public JmhRunnerStub(MbrConfiguration configuration, MutableExtensionRegistry extensionRegistry) {
 		super(configuration, extensionRegistry);
 	}
 

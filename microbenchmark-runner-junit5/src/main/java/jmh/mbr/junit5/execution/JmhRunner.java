@@ -9,18 +9,6 @@
  */
 package jmh.mbr.junit5.execution;
 
-import jmh.mbr.core.BenchmarkConfiguration;
-import jmh.mbr.core.JmhSupport;
-import jmh.mbr.core.StringUtils;
-import jmh.mbr.core.model.BenchmarkResults;
-import jmh.mbr.core.model.BenchmarkResults.MetaData;
-import jmh.mbr.core.model.MethodAware;
-import jmh.mbr.junit5.descriptor.AbstractBenchmarkDescriptor;
-import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
-import jmh.mbr.junit5.descriptor.BenchmarkFixtureDescriptor;
-import jmh.mbr.junit5.descriptor.BenchmarkMethodDescriptor;
-import jmh.mbr.junit5.descriptor.ParametrizedBenchmarkMethodDescriptor;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -38,9 +26,20 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import jmh.mbr.core.BenchmarkConfiguration;
+import jmh.mbr.core.JmhSupport;
+import jmh.mbr.core.StringUtils;
+import jmh.mbr.core.model.BenchmarkResults;
+import jmh.mbr.core.model.BenchmarkResults.MetaData;
+import jmh.mbr.core.model.MethodAware;
+import jmh.mbr.junit5.config.MbrConfiguration;
+import jmh.mbr.junit5.descriptor.AbstractBenchmarkDescriptor;
+import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
+import jmh.mbr.junit5.descriptor.BenchmarkFixtureDescriptor;
+import jmh.mbr.junit5.descriptor.BenchmarkMethodDescriptor;
+import jmh.mbr.junit5.descriptor.ParametrizedBenchmarkMethodDescriptor;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.jupiter.engine.extension.ExtensionRegistry;
 import org.junit.jupiter.engine.extension.MutableExtensionRegistry;
 import org.junit.platform.engine.EngineExecutionListener;
@@ -65,10 +64,10 @@ public class JmhRunner {
 
 	private static final ConditionEvaluator evaluator = new ConditionEvaluator();
 
-	private final JupiterConfiguration configuration;
+	private final MbrConfiguration configuration;
 	private final MutableExtensionRegistry extensionRegistry;
 
-	public JmhRunner(JupiterConfiguration configuration, MutableExtensionRegistry extensionRegistry) {
+	public JmhRunner(MbrConfiguration configuration, MutableExtensionRegistry extensionRegistry) {
 		this.configuration = configuration;
 		this.extensionRegistry = extensionRegistry;
 	}

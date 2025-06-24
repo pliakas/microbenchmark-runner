@@ -15,10 +15,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import jmh.mbr.junit5.config.MbrConfiguration;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestInstances;
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.platform.engine.EngineExecutionListener;
 import org.junit.platform.engine.support.hierarchical.Node.ExecutionMode;
 
@@ -27,8 +27,8 @@ import org.junit.platform.engine.support.hierarchical.Node.ExecutionMode;
  */
 class BenchmarkClassExtensionContext extends AbstractExtensionContext<BenchmarkClassDescriptor> {
 
-	BenchmarkClassExtensionContext(ExtensionContext parent, EngineExecutionListener engineExecutionListener, BenchmarkClassDescriptor testDescriptor, JupiterConfiguration configuration) {
-		super(parent, engineExecutionListener, testDescriptor, configuration);
+	BenchmarkClassExtensionContext(ExtensionContext parent, EngineExecutionListener engineExecutionListener, BenchmarkClassDescriptor testDescriptor, MbrConfiguration configuration) {
+		super(parent, engineExecutionListener, testDescriptor, configuration, new LauncherStoreFacade(configuration.getStore()));
 	}
 
 	@Override

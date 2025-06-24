@@ -9,17 +9,16 @@
  */
 package jmh.mbr.junit5.execution;
 
-import jmh.mbr.junit5.descriptor.AbstractBenchmarkDescriptor;
-import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import jmh.mbr.junit5.config.MbrConfiguration;
+import jmh.mbr.junit5.descriptor.AbstractBenchmarkDescriptor;
+import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.junit.platform.engine.EngineExecutionListener;
@@ -33,10 +32,10 @@ class ExtensionContextProvider implements AutoCloseable {
 	private static final Logger logger = LoggerFactory.getLogger(ConditionEvaluator.class);
 
 	private final EngineExecutionListener listener;
-	private final JupiterConfiguration configuration;
+	private final MbrConfiguration configuration;
 	private final Map<AbstractBenchmarkDescriptor, ExtensionContext> contextMap = new LinkedHashMap<>();
 
-	private ExtensionContextProvider(EngineExecutionListener listener, JupiterConfiguration configuration) {
+	private ExtensionContextProvider(EngineExecutionListener listener, MbrConfiguration configuration) {
 		this.listener = listener;
 		this.configuration = configuration;
 	}
@@ -48,7 +47,7 @@ class ExtensionContextProvider implements AutoCloseable {
 	 * @param configuration must not be {@literal null}.
 	 * @return the new {@link ExtensionContextProvider}.
 	 */
-	static ExtensionContextProvider create(EngineExecutionListener listener, JupiterConfiguration configuration) {
+	static ExtensionContextProvider create(EngineExecutionListener listener, MbrConfiguration configuration) {
 		return new ExtensionContextProvider(listener, configuration);
 	}
 

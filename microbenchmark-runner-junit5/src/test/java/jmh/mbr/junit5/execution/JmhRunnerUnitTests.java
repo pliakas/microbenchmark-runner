@@ -9,16 +9,6 @@
  */
 package jmh.mbr.junit5.execution;
 
-import jmh.mbr.core.model.BenchmarkClass;
-import jmh.mbr.core.model.BenchmarkDescriptor;
-import jmh.mbr.core.model.BenchmarkDescriptorFactory;
-import jmh.mbr.core.model.BenchmarkMethod;
-import jmh.mbr.core.model.BenchmarkResults;
-import jmh.mbr.junit5.JmhRunnerStub;
-import jmh.mbr.junit5.descriptor.AbstractBenchmarkDescriptor;
-import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
-import jmh.mbr.junit5.descriptor.BenchmarkMethodDescriptor;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -31,11 +21,19 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
-import static org.assertj.core.api.Assertions.*;
+import jmh.mbr.core.model.BenchmarkClass;
+import jmh.mbr.core.model.BenchmarkDescriptor;
+import jmh.mbr.core.model.BenchmarkDescriptorFactory;
+import jmh.mbr.core.model.BenchmarkMethod;
+import jmh.mbr.core.model.BenchmarkResults;
+import jmh.mbr.junit5.JmhRunnerStub;
+import jmh.mbr.junit5.config.DefaultMbrConfiguration;
+import jmh.mbr.junit5.config.MbrConfiguration;
+import jmh.mbr.junit5.descriptor.AbstractBenchmarkDescriptor;
+import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
+import jmh.mbr.junit5.descriptor.BenchmarkMethodDescriptor;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.engine.config.DefaultJupiterConfiguration;
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.jupiter.engine.extension.MutableExtensionRegistry;
 import org.junit.platform.engine.ConfigurationParameters;
 import org.junit.platform.engine.EngineExecutionListener;
@@ -44,7 +42,10 @@ import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.reporting.OutputDirectoryProvider;
 import org.junit.platform.engine.reporting.ReportEntry;
+import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
 import org.openjdk.jmh.annotations.Benchmark;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * Unit tests for {@link JmhRunner}.
@@ -54,7 +55,7 @@ public class JmhRunnerUnitTests {
 	JmhRunnerStub runner;
 
 	{
-		JupiterConfiguration configuration = new DefaultJupiterConfiguration(EmptyConfigurationParameters.INSTANCE, EmptyOutputDirectoryProvider.INSTANCE);
+		MbrConfiguration configuration = new DefaultMbrConfiguration(EmptyConfigurationParameters.INSTANCE, EmptyOutputDirectoryProvider.INSTANCE, new NamespacedHierarchicalStore(null).newChild());
 		runner = new JmhRunnerStub(configuration, MutableExtensionRegistry
 				.createRegistryWithDefaultExtensions(configuration)) {
 		};
@@ -125,7 +126,7 @@ public class JmhRunnerUnitTests {
 		CapturingConfigurationParameters parameters = new CapturingConfigurationParameters(Collections
 				.singletonMap("jmh.mbr.project", "my beloved one!"));
 
-		DefaultJupiterConfiguration configuration = new DefaultJupiterConfiguration(parameters, EmptyOutputDirectoryProvider.INSTANCE);
+		MbrConfiguration configuration = new DefaultMbrConfiguration(parameters, EmptyOutputDirectoryProvider.INSTANCE, new NamespacedHierarchicalStore(null).newChild());
 		JmhRunnerStub runner = new JmhRunnerStub(configuration, MutableExtensionRegistry
 				.createRegistryWithDefaultExtensions(configuration)) {
 		};

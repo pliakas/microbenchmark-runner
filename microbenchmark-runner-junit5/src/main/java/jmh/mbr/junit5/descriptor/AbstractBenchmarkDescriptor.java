@@ -12,8 +12,8 @@ package jmh.mbr.junit5.descriptor;
 import java.util.Collections;
 import java.util.Set;
 
+import jmh.mbr.junit5.config.MbrConfiguration;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.jupiter.engine.extension.ExtensionRegistry;
 import org.junit.jupiter.engine.extension.MutableExtensionRegistry;
 import org.junit.platform.engine.EngineExecutionListener;
@@ -68,10 +68,10 @@ public abstract class AbstractBenchmarkDescriptor extends AbstractTestDescriptor
 	 *
 	 * @param parent optional parent {@link ExtensionContext}. {@literal null} to use no parent so the resulting context serves as root {@link ExtensionContext}.
 	 * @param engineExecutionListener the listener.
-	 * @param configuration configuration  parameters.
+	 * @param configuration configuration parameters.
 	 * @return the {@link ExtensionContext} for this descriptor.
 	 */
-	public abstract ExtensionContext getExtensionContext(ExtensionContext parent, EngineExecutionListener engineExecutionListener, JupiterConfiguration configuration);
+	public abstract ExtensionContext getExtensionContext(ExtensionContext parent, EngineExecutionListener engineExecutionListener, MbrConfiguration configuration);
 
 	/**
 	 * Creates an {@link MutableExtensionRegistry} that contains extensions derived from the benchmark source (annotations on class/method level).

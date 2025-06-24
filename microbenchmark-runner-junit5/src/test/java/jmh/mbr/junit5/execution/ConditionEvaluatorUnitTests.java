@@ -9,35 +9,36 @@
  */
 package jmh.mbr.junit5.execution;
 
-import jmh.mbr.core.model.BenchmarkClass;
-import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
-import jmh.mbr.junit5.execution.JmhRunnerUnitTests.EmptyOutputDirectoryProvider;
-
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import jmh.mbr.core.model.BenchmarkClass;
+import jmh.mbr.junit5.config.DefaultMbrConfiguration;
+import jmh.mbr.junit5.config.MbrConfiguration;
+import jmh.mbr.junit5.descriptor.BenchmarkClassDescriptor;
+import jmh.mbr.junit5.execution.JmhRunnerUnitTests.EmptyOutputDirectoryProvider;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.engine.config.DefaultJupiterConfiguration;
-import org.junit.jupiter.engine.config.JupiterConfiguration;
 import org.junit.jupiter.engine.extension.ExtensionRegistry;
 import org.junit.jupiter.engine.extension.MutableExtensionRegistry;
 import org.junit.platform.engine.ConfigurationParameters;
 import org.junit.platform.engine.UniqueId;
+import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
 import org.openjdk.jmh.annotations.Benchmark;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * Unit tests for {@link ConditionEvaluator}.
  */
 public class ConditionEvaluatorUnitTests {
 
-	JupiterConfiguration configuration = new DefaultJupiterConfiguration(JmhRunnerUnitTests.EmptyConfigurationParameters.INSTANCE, EmptyOutputDirectoryProvider.INSTANCE);
+	MbrConfiguration configuration = new DefaultMbrConfiguration(JmhRunnerUnitTests.EmptyConfigurationParameters.INSTANCE, EmptyOutputDirectoryProvider.INSTANCE, new NamespacedHierarchicalStore(null).newChild());
 
 	@Test
 	void shouldRunWithoutCondition() {
